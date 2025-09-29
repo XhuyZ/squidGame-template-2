@@ -1,0 +1,5 @@
+{
+  "name": "Squid Game Challenge",
+  "description": "A multiplayer web-based simulation of the Squid Game experience with three challenging mini-games. Players compete in 'Red Light, Green Light', 'Tug of War', and a 'Solo Final' to be the last one standing. Features real-time gameplay orchestrated by a server and a fallback single-player mode.",
+  "requestFramePermissions": []
+}
