@@ -1,7 +1,7 @@
 
 import React from 'react';
 import type { Player } from '../types';
-import PlayerCard from './PlayerCard';
+import PlayerCard from './PlayerCard.tsx';
 
 interface PlayerGridProps {
     players: Player[];

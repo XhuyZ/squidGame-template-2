@@ -1,8 +1,8 @@
 
 import React from 'react';
-import { GameProvider } from './contexts/GameContext';
-import GameManager from './components/GameManager';
-import SoundControls from './components/SoundControls';
+import { GameProvider } from './contexts/GameContext.tsx';
+import GameManager from './components/GameManager.tsx';
+import SoundControls from './components/SoundControls.tsx';
 import { Toaster } from 'react-hot-toast';
 
 // Set to true for single-player mode which simulates the server locally

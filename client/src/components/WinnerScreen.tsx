@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { useGame } from '../contexts/GameContext';
+import { useGame } from '../contexts/GameContext.tsx';
 import { motion } from 'framer-motion';
 import { FaTrophy } from 'react-icons/fa';
 

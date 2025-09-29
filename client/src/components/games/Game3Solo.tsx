@@ -1,10 +1,10 @@
 
 import React from 'react';
-import { useGame } from '../../contexts/GameContext';
-import QuestionCard from '../QuestionCard';
+import { useGame } from '../../contexts/GameContext.tsx';
+import QuestionCard from '../QuestionCard.tsx';
 import { motion } from 'framer-motion';
 import { FaUserSecret } from 'react-icons/fa';
-import GameOverlay from '../GameOverlay';
+import GameOverlay from '../GameOverlay.tsx';
 
 const Game3Solo: React.FC = () => {
     const { gameState, playerId } = useGame();

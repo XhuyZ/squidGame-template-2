@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, useEffect, ReactNode, useCa
 import { io, Socket } from 'socket.io-client';
 import toast from 'react-hot-toast';
 import type { GameState, GameContextType, SoundType } from '../types';
-import { createMockServer, MockServer } from '../services/mockServer';
+import { createMockServer, MockServer } from '../services/mockServer.ts';
 
 const GameContext = createContext<GameContextType | null>(null);
 
@@ -16,16 +16,22 @@ export const useGame = () => {
 };
 
 const playSound = (sound: SoundType) => {
-  try {
-    const audio = document.getElementById(`sound-${sound}`) as HTMLAudioElement;
-    if (audio) {
-      audio.currentTime = 0;
-      audio.play();
-    }
-  } catch (error) {
-    console.error(`Error playing sound: ${sound}`, error);
+  const audio = document.getElementById(`sound-${sound}`) as HTMLAudioElement | null;
+
+  if (!audio) {
+    console.warn(`Audio element not found: sound-${sound}`);
+    return;
   }
+
+  // Clone để tránh xung đột khi gọi nhiều lần liên tiếp
+  const clone = audio.cloneNode() as HTMLAudioElement;
+  clone.currentTime = 0;
+
+  clone.play().catch(err => {
+    console.warn(`Autoplay blocked or play interrupted for: ${sound}`, err);
+  });
 };
+
 
 const initialState: GameState = {
   gameName: 'lobby',

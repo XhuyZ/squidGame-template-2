@@ -1,5 +1,5 @@
 import { GameState, SoundType, Player } from '../types';
-import { questionsGame1, questionsGame2, questionsGame3 } from '../data/questions';
+import { questionsGame1, questionsGame2, questionsGame3 } from '../data/questions.ts';
 
 // This is a client-side simulation of the server for single-player mode.
 // It mimics the socket.io interface.

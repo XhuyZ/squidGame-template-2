@@ -1,7 +1,6 @@
-
 import React, { useState, useEffect } from 'react';
 import type { Question } from '../types';
-import { useGame } from '../contexts/GameContext';
+import { useGame } from '../contexts/GameContext.tsx';
 import { motion } from 'framer-motion';
 
 interface QuestionCardProps {
@@ -9,12 +8,12 @@ interface QuestionCardProps {
 }
 
 const QuestionCard: React.FC<QuestionCardProps> = ({ question }) => {
-  const { submitAnswer, gameState } = useGame();
+  const { submitAnswer, gameState, playerId } = useGame(); // ✅ chỉ gọi hook 1 lần
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [timeLeft, setTimeLeft] = useState(15);
 
-  const me = gameState.players.find(p => p.id === useGame().playerId);
+const me = gameState.players.find(p => p.id === playerId);
 
   useEffect(() => {
     setSelectedAnswer(null);
@@ -47,7 +46,11 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question }) => {
     >
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold text-squid-light">{question.text}</h2>
-        <div className={`text-4xl font-pixel ${timeLeft < 6 ? 'text-red-500 animate-pulse' : 'text-squid-green'}`}>
+        <div
+          className={`text-4xl font-pixel ${
+            timeLeft < 6 ? 'text-red-500 animate-pulse' : 'text-squid-green'
+          }`}
+        >
           {timeLeft}
         </div>
       </div>

@@ -1,5 +1,5 @@
 
-import type { Question } from '../types';
+import type { Question } from '../types.ts';
 
 export const questionsGame1: Question[] = [
   { id: 'g1q1', text: "Which planet is known as the Red Planet?", options: ["Earth", "Mars", "Jupiter", "Saturn"], answer: "Mars" },

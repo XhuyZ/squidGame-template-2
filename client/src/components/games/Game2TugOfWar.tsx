@@ -1,10 +1,10 @@
 
 import React from 'react';
-import { useGame } from '../../contexts/GameContext';
-import QuestionCard from '../QuestionCard';
+import { useGame } from '../../contexts/GameContext.tsx';
+import QuestionCard from '../QuestionCard.tsx';
 import { motion } from 'framer-motion';
 import { FaUserFriends } from 'react-icons/fa';
-import GameOverlay from '../GameOverlay';
+import GameOverlay from '../GameOverlay.tsx';
 
 const TeamPanel: React.FC<{ team: 'red' | 'blue', players: any[], title: string }> = ({ team, players, title }) => (
     <div className={`w-full p-4 rounded-lg border-4 ${team === 'red' ? 'border-red-500 bg-red-900 bg-opacity-50' : 'border-blue-500 bg-blue-900 bg-opacity-50'}`}>

@@ -1,13 +1,13 @@
 
 import React from 'react';
-import { useGame } from '../contexts/GameContext';
-import JoinScreen from './JoinScreen';
-import Lobby from './Lobby';
-import Game1RedLight from './games/Game1RedLight';
-import Game2TugOfWar from './games/Game2TugOfWar';
-import Game3Solo from './games/Game3Solo';
-import Leaderboard from './Leaderboard';
-import WinnerScreen from './WinnerScreen';
+import { useGame } from '../contexts/GameContext.tsx';
+import JoinScreen from './JoinScreen.tsx';
+import Lobby from './Lobby.tsx';
+import Game1RedLight from './games/Game1RedLight.tsx';
+import Game2TugOfWar from './games/Game2TugOfWar.tsx';
+import Game3Solo from './games/Game3Solo.tsx';
+import Leaderboard from './Leaderboard.tsx';
+import WinnerScreen from './WinnerScreen.tsx';
 
 const GameManager: React.FC = () => {
   const { gameState, playerId } = useGame();

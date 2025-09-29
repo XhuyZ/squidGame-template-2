@@ -1,9 +1,9 @@
 
 import React from 'react';
-import { useGame } from '../../contexts/GameContext';
-import QuestionCard from '../QuestionCard';
-import PlayerGrid from '../PlayerGrid';
-import GameOverlay from '../GameOverlay';
+import { useGame } from '../../contexts/GameContext.tsx';
+import QuestionCard from '../QuestionCard.tsx';
+import PlayerGrid from '../PlayerGrid.tsx';
+import GameOverlay from '../GameOverlay.tsx';
 
 const Game1RedLight: React.FC = () => {
   const { gameState, playerId } = useGame();

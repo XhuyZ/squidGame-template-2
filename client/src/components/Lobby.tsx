@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { useGame } from '../contexts/GameContext';
+import { useGame } from '../contexts/GameContext.tsx';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaUserCircle } from 'react-icons/fa';
 

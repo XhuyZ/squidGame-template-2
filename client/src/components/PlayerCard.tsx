@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import type { Player } from '../types';
 import { motion } from 'framer-motion';
 import { FaHeart, FaHeartBroken, FaQuestion } from 'react-icons/fa';
-import { useGame } from '../contexts/GameContext';
+import { useGame } from '../contexts/GameContext.tsx';
 
 interface PlayerCardProps {
   player: Player;
