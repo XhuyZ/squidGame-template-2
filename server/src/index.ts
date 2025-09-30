@@ -62,7 +62,8 @@ io.on("connection", (socket) => {
   });
 });
 
-const PORT = process.env.PORT || 4000;
+const PORT: number = parseInt(process.env.PORT || "4000", 10);
+
 server.listen(PORT, "0.0.0.0", () => {
   console.log(`Server is running on http://0.0.0.0:${PORT}`);
 });
