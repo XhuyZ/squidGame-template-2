@@ -1,18 +1,31 @@
-
+// components/JoinScreen.tsx
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useGame } from '../contexts/GameContext.tsx';
 import { motion } from 'framer-motion';
 import { GiOctopus } from 'react-icons/gi';
 
+// Admin username and a flag to check if it's currently being typed
+const ADMIN_USERNAME = 'adminlatoigondeptrai123';
+
 const JoinScreen: React.FC = () => {
+
   const [name, setName] = useState('');
+  const [error, setError] = useState<string | null>(null);
   const { joinGame } = useGame();
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (name.trim()) {
-      joinGame(name.trim());
+    const trimmed = name.trim();
+    if (!trimmed) return;
+    if (trimmed === ADMIN_USERNAME) {
+      // Redirect to admin dashboard route
+      navigate('/admin');
+      return;
     }
+    setError(null);
+    joinGame(trimmed, false);
   };
 
   return (
@@ -29,13 +42,16 @@ const JoinScreen: React.FC = () => {
           <p className="text-squid-green mt-2">ARE YOU READY TO PLAY?</p>
         </div>
         <form onSubmit={handleSubmit}>
+          {error && (
+            <div className="mb-4 text-red-400 text-center font-pixel text-lg">{error}</div>
+          )}
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="ENTER YOUR NAME"
             className="w-full bg-squid-dark border-2 border-squid-green p-4 rounded-md text-center text-xl font-pixel text-squid-light placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-squid-pink focus:border-transparent"
-            maxLength={15}
+            maxLength={30} // Increased maxLength for admin username
             aria-label="Enter your name"
           />
           <motion.button

@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaUserCircle } from 'react-icons/fa';
 
 const Lobby: React.FC = () => {
-  const { gameState } = useGame();
+  const { nonAdminPlayers, gameState } = useGame();
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-squid-dark">
@@ -19,7 +19,7 @@ const Lobby: React.FC = () => {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <AnimatePresence>
-            {gameState.players.map((player) => (
+            {nonAdminPlayers.map((player) => (
               <motion.div
                 key={player.id}
                 initial={{ opacity: 0, y: 20 }}

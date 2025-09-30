@@ -1,4 +1,4 @@
-
+// components/GameManager.tsx
 import React from 'react';
 import { useGame } from '../contexts/GameContext.tsx';
 import JoinScreen from './JoinScreen.tsx';
@@ -8,6 +8,7 @@ import Game2TugOfWar from './games/Game2TugOfWar.tsx';
 import Game3Solo from './games/Game3Solo.tsx';
 import Leaderboard from './Leaderboard.tsx';
 import WinnerScreen from './WinnerScreen.tsx';
+import AdminDashboard from './AdminDashboard.tsx'; // Import AdminDashboard
 
 const GameManager: React.FC = () => {
   const { gameState, playerId } = useGame();
@@ -15,6 +16,11 @@ const GameManager: React.FC = () => {
 
   if (!player) {
     return <JoinScreen />;
+  }
+
+  // If the player is an admin, render the AdminDashboard
+  if (player.isAdmin) {
+    return <AdminDashboard />;
   }
 
   switch (gameState.gameName) {

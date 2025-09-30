@@ -17,6 +17,14 @@ export const createMockServer = (
     let gameState: GameState = {
         gameName: 'lobby',
         players: [],
+        adminStats: {
+            totalPlayers: 0,
+            alivePlayers: 0,
+            eliminatedPlayers: 0,
+            game1Scores: [],
+            game2Scores: [],
+            game3Scores: [],
+        },
     };
     let player: Player | null = null;
     // FIX: Use ReturnType<typeof setTimeout> for broader compatibility instead of NodeJS.Timeout.

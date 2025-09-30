@@ -1,4 +1,4 @@
-
+// contexts/GameContext.tsx
 import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
 import { io, Socket } from 'socket.io-client';
 import toast from 'react-hot-toast';
@@ -23,7 +23,6 @@ const playSound = (sound: SoundType) => {
     return;
   }
 
-  // Clone để tránh xung đột khi gọi nhiều lần liên tiếp
   const clone = audio.cloneNode() as HTMLAudioElement;
   clone.currentTime = 0;
 
@@ -36,6 +35,15 @@ const playSound = (sound: SoundType) => {
 const initialState: GameState = {
   gameName: 'lobby',
   players: [],
+  // Add a placeholder for admin statistics
+  adminStats: {
+    totalPlayers: 0,
+    alivePlayers: 0,
+    eliminatedPlayers: 0,
+    game1Scores: [],
+    game2Scores: [],
+    game3Scores: [],
+  }
 };
 
 interface GameProviderProps {
@@ -48,6 +56,9 @@ export const GameProvider = ({ children, isSinglePlayer = false }: GameProviderP
   const [playerId, setPlayerId] = useState<string | null>(null);
   const [isMuted, setIsMuted] = useState(false);
   const [socket, setSocket] = useState<Socket | MockServer | null>(null);
+
+  // Derived value: non-admin players
+  const nonAdminPlayers = gameState.players.filter(p => !p.isAdmin);
 
   useEffect(() => {
     let newSocket: Socket | MockServer;
@@ -64,6 +75,14 @@ export const GameProvider = ({ children, isSinglePlayer = false }: GameProviderP
 
     newSocket.on('gameStateUpdate', (newState: GameState) => {
       setGameState(newState);
+    });
+
+    // New event for admin-specific data
+    newSocket.on('adminStatsUpdate', (stats: typeof initialState.adminStats) => {
+      setGameState(prevState => ({
+        ...prevState,
+        adminStats: stats
+      }));
     });
 
     newSocket.on('notification', (message: string) => {
@@ -83,8 +102,9 @@ export const GameProvider = ({ children, isSinglePlayer = false }: GameProviderP
     };
   }, [isSinglePlayer, isMuted]);
 
-  const joinGame = useCallback((name: string) => {
-    socket?.emit('join', { name });
+  // Modified joinGame to accept isAdmin
+  const joinGame = useCallback((name: string, isAdmin?: boolean) => {
+    socket?.emit('join', { name, isAdmin: !!isAdmin });
   }, [socket]);
 
   const submitAnswer = useCallback((answer: string) => {
@@ -95,8 +115,36 @@ export const GameProvider = ({ children, isSinglePlayer = false }: GameProviderP
     setIsMuted(prev => !prev);
   }, []);
 
+
+  // Admin actions
+  const adminStartGame = useCallback(() => {
+    socket?.emit('admin:startGame', {});
+  }, [socket]);
+
+  const adminStartNextGame = useCallback(() => {
+    socket?.emit('admin:startNextGame', {});
+  }, [socket]);
+
+  const adminResetGame = useCallback(() => {
+    socket?.emit('admin:resetGame', {});
+  }, [socket]);
+
+  // You might need more admin controls, like ending a game,
+  // or forcing a player status. Add them here as needed.
+
   return (
-    <GameContext.Provider value={{ gameState, playerId, joinGame, submitAnswer, isMuted, toggleMute }}>
+    <GameContext.Provider value={{ 
+      gameState, 
+      playerId, 
+      joinGame, 
+      submitAnswer, 
+      isMuted, 
+      toggleMute,
+      adminStartGame, // Provide admin actions
+      adminStartNextGame,
+      adminResetGame,
+      nonAdminPlayers, // Add non-admin players for consumers
+    }}>
       {children}
     </GameContext.Provider>
   );

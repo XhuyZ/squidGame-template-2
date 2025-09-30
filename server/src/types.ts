@@ -8,6 +8,7 @@ export interface Player {
     team?: 'red' | 'blue';
     status: 'alive' | 'out';
     answered: boolean;
+    isAdmin?: boolean; // Add this line
 }
 
 export interface Question {
@@ -34,6 +35,15 @@ export interface GameState {
     };
     winner?: Player;
     countdown?: number;
+    // New admin-specific statistics
+    adminStats: {
+        totalPlayers: number;
+        alivePlayers: number;
+        eliminatedPlayers: number;
+        game1Scores: { name: string; score: number }[];
+        game2Scores: { name: string; score: number }[];
+        game3Scores: { name: string; score: number }[];
+    };
 }
 
 export type SoundType = 'gunshot' | 'countdown' | 'cheer' | 'eliminated' | 'correct';

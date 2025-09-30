@@ -5,8 +5,8 @@ import { motion } from 'framer-motion';
 import { FaTrophy } from 'react-icons/fa';
 
 const Leaderboard: React.FC = () => {
-    const { gameState } = useGame();
-    const sortedPlayers = [...gameState.players].sort((a, b) => b.score - a.score);
+    const { nonAdminPlayers, gameState } = useGame();
+    const sortedPlayers = [...nonAdminPlayers].sort((a, b) => b.score - a.score);
 
     const getTrophyColor = (index: number) => {
         if (index === 0) return 'text-yellow-400';
@@ -23,6 +23,12 @@ const Leaderboard: React.FC = () => {
                 className="w-full max-w-2xl bg-squid-gray p-8 rounded-lg shadow-2xl border-2 border-squid-green"
             >
                 <h1 className="text-5xl font-pixel text-squid-pink text-center mb-8">LEADERBOARD</h1>
+                {typeof gameState.countdown === 'number' && (
+                  <div className="flex flex-col items-center mb-8">
+                    <span className="text-2xl text-squid-green font-pixel mb-2">Next game in</span>
+                    <span className="text-7xl font-pixel text-squid-pink animate-pulse">{gameState.countdown}</span>
+                  </div>
+                )}
                 <div className="space-y-4">
                     {sortedPlayers.map((player, index) => (
                         <motion.div
