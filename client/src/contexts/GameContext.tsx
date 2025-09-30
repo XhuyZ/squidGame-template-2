@@ -65,7 +65,7 @@ export const GameProvider = ({ children, isSinglePlayer = false }: GameProviderP
     if (isSinglePlayer) {
       newSocket = createMockServer(setGameState, playSound);
     } else {
-      const socketIo = io(process.env.REACT_APP_SERVER_URL || 'http://localhost:4000');
+      const socketIo = io(process.env.REACT_APP_SERVER_URL || 'https://mln.xhuyz.me:4000');
       newSocket = socketIo;
       
       socketIo.on('connect', () => {
