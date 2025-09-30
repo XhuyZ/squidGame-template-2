@@ -1,16 +1,18 @@
+# ok test123
 version: '3.8'
 services:
   server:
+    image: squid-game-server
     build:
       context: ./server
     ports:
       - "4000:4000"
 
   client:
+    image: squid-game-client
     build:
       context: ./client
     ports:
-      - "3001:80"
+      - "3000:3000"
     depends_on:
       - server
-
