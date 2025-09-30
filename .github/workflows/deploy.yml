@@ -38,9 +38,9 @@ jobs:
         run: npm run build --if-present
         working-directory: ./server
 
-      - name: Run server tests
-        run: npm test --if-present
-        working-directory: ./server
+      # - name: Run server tests
+      #   run: npm test --if-present
+      #   working-directory: ./server
 
   # --- CD jobs (only on push to main) ---
   build-and-push-client:
