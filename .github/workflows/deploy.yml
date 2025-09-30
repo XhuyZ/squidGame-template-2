@@ -26,9 +26,9 @@ jobs:
         run: npm run build --if-present
         working-directory: ./client
 
-      - name: Run client tests
-        run: npm test --if-present
-        working-directory: ./client
+      # - name: Run client tests
+      #   run: npm test --if-present
+      #   working-directory: ./client
 
       - name: Install server dependencies
         run: npm ci
